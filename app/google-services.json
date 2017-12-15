@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "360730834093",
+    "firebase_url": "https://redcarpet-92617.firebaseio.com",
+    "project_id": "redcarpet-92617",
+    "storage_bucket": "redcarpet-92617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360730834093:android:1977bbdba8dfda5f",
+        "android_client_info": {
+          "package_name": "com.mics.redcarpetv1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360730834093-an7g3i6mqi07aa26ogqmn4j2d0v15gp5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mics.redcarpetv1",
+            "certificate_hash": "a4ac43a20eb719c869260fa99e741f60c438df28"
+          }
+        },
+        {
+          "client_id": "360730834093-735p8j883imq52vabtlrnhk0jg62pi19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm9axZrnvrcLFtLf7p4G_Pj8UmrCyApRc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360730834093-735p8j883imq52vabtlrnhk0jg62pi19.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "360730834093-1ja9a2g416gd5q0to06phu26fgedll76.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mics.redcarpetv1"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360730834093:android:37e8444a85c88d91",
+        "android_client_info": {
+          "package_name": "com.example.saglik.redcarpetapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360730834093-cflep9p7jd7p9au63sn48o1u06hje7d5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.saglik.redcarpetapp",
+            "certificate_hash": "a4ac43a20eb719c869260fa99e741f60c438df28"
+          }
+        },
+        {
+          "client_id": "360730834093-735p8j883imq52vabtlrnhk0jg62pi19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm9axZrnvrcLFtLf7p4G_Pj8UmrCyApRc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360730834093-735p8j883imq52vabtlrnhk0jg62pi19.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "360730834093-1ja9a2g416gd5q0to06phu26fgedll76.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mics.redcarpetv1"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
