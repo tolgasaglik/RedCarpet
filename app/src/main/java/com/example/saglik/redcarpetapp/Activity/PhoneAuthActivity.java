@@ -12,6 +12,8 @@ package com.example.saglik.redcarpetapp.Activity;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.TextView;
+
+        import com.example.saglik.redcarpetapp.Classes.User;
         import com.example.saglik.redcarpetapp.R;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
@@ -23,6 +25,12 @@ package com.example.saglik.redcarpetapp.Activity;
         import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.auth.PhoneAuthCredential;
         import com.google.firebase.auth.PhoneAuthProvider;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.ValueEventListener;
+
         import java.util.concurrent.TimeUnit;
 
 public class PhoneAuthActivity extends AppCompatActivity implements
@@ -61,6 +69,7 @@ public class PhoneAuthActivity extends AppCompatActivity implements
     private Button mVerifyButton;
     private Button mResendButton;
     private Button mSignOutButton;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,8 +340,8 @@ public class PhoneAuthActivity extends AppCompatActivity implements
                 mDetailText.setText(R.string.status_sign_in_failed);
                 break;
             case STATE_SIGNIN_SUCCESS:
-                Intent intent = new Intent(PhoneAuthActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                existingUserCheck();
+
                 // Np-op, handled by sign-in check
                 break;
         }
@@ -405,5 +414,34 @@ public class PhoneAuthActivity extends AppCompatActivity implements
                 signOut();
                 break;
         }
+    }
+
+    private void existingUserCheck(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser userA = mAuth.getCurrentUser();
+        //Warning may produce null pointer exception
+        String userID = userA.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("users"+"/"+userID);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() != null){                    //If user exist show the old informations
+                    Intent intent = new Intent(PhoneAuthActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(PhoneAuthActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
