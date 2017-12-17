@@ -8,13 +8,16 @@ public class User {
     private String nickname;
     private String location;
     private String phoneNumber;
+    private boolean admin;
 
     public User(){
 
     }
-    public User(String name, String location){
+
+    public User(String name, String location, Boolean admin){
         this.nickname=name;
         this.location=location;
+        this.admin = admin;
     }
 
     public String getNickname() {
@@ -40,4 +43,8 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public boolean isAdmin() { return admin;  }
+
+    public void setAdmin(boolean admin) { this.admin = admin; }
 }

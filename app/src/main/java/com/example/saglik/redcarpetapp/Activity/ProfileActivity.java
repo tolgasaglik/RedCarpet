@@ -1,11 +1,13 @@
 package com.example.saglik.redcarpetapp.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.example.saglik.redcarpetapp.Classes.User;
 import com.example.saglik.redcarpetapp.Database.DatabaseWriter;
@@ -22,8 +24,12 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String REQUIRED = "REQUIRED";
     private EditText nameText;
     private EditText locationText;
+    private Switch adminSwitch;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private String userID;
+    private FirebaseUser currentUser;
+    private MenuItem adminMenu;
 
 
     @Override
@@ -34,8 +40,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         nameText = findViewById(R.id.editText1);
         locationText = findViewById(R.id.editText2);
+        adminSwitch = (Switch)  findViewById(R.id.switch1);
 
-        setEdit();
+        setEditTextViews();
 
 
     }
@@ -43,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void saveAndProceed(View view){
         String nickname = nameText.getText().toString();
         String location = locationText.getText().toString();
+        boolean isAdmin = adminSwitch.isChecked();
         if (TextUtils.isEmpty(nickname)) {
             nameText.setError(REQUIRED);
             return;
@@ -53,15 +61,18 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        User user = new User(nickname,location);
+        User user = new User(nickname,location, isAdmin);
         DatabaseWriter dbWriter = new DatabaseWriter();
         dbWriter.registerUser(user);
+        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+        //intent.putExtra("type",String.valueOf(isAdmin));
+        startActivity(intent);
     }
 
-    private void setEdit(){
+    private void setEditTextViews(){
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser userA = mAuth.getCurrentUser();
-        String userID = userA.getUid();
+        currentUser = mAuth.getCurrentUser();
+        userID = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference("users"+"/"+userID);
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -73,6 +84,13 @@ public class ProfileActivity extends AppCompatActivity {
                     //user = getData(dataSnapshot, userId);
                     nameText.setText(user.getNickname());
                     locationText.setText(user.getLocation());
+                    adminSwitch.setChecked(user.isAdmin());
+                    //Disappear administrative mode from navigation bar if user is not an admin
+                    if(user.isAdmin()){
+
+                    }else{
+
+                    }
                 }
             }
 

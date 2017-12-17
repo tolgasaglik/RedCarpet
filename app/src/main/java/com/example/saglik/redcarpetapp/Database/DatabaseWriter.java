@@ -27,6 +27,7 @@ public class DatabaseWriter {
         // [END initialize_database_ref]
         mDatabase.child("nickname").setValue(user.getNickname());
         mDatabase.child("location").setValue(user.getLocation());
+        mDatabase.child("admin").setValue(user.isAdmin());
         mDatabase.child("phoneNumber").setValue(user.getPhoneNumber());
     }
 }

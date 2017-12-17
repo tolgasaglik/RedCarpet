@@ -13,21 +13,31 @@
         android:layout_above="@+id/editText2"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Nickname"
-        android:textSize="20dp"
-        android:gravity="center"/>
+        android:gravity="center_vertical"
+        android:text="Nickname:"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_alignEnd="@+id/textView1"
+        android:layout_above="@+id/switch1"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView1"
-        android:text="Location"
-        android:textSize="20dp"
-        android:gravity="center"/>
+        android:layout_toStartOf="@+id/editText2"
+        android:gravity="center_vertical"
+        android:text="Location:"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:gravity="center_vertical"
+        android:text="Become an Organizer"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editText1"
@@ -51,15 +61,28 @@
         android:inputType="textPersonName"
         android:hint="Type your location" />
 
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_marginStart="72dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
     <Button
-        android:theme="@style/ThemeOverlay.MyDarkButton"
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2"
+        android:onClick="saveAndProceed"
         android:text="Save and Proceed"
-        android:onClick="saveAndProceed"/>
+        android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+
 
 </RelativeLayout>
