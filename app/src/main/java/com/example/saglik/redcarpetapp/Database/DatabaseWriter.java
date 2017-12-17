@@ -23,20 +23,17 @@ public class DatabaseWriter {
         FirebaseUser userA = mAuth.getCurrentUser();
         String userID = userA.getUid();               //GET ID FROM AUTHENTICATION
         user.setPhoneNumber(userA.getPhoneNumber());
-        // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference("users/"+userID);
-        // [END initialize_database_ref]
         mDatabase.child("nickname").setValue(user.getNickname());
         mDatabase.child("location").setValue(user.getLocation());
         mDatabase.child("admin").setValue(user.isAdmin());
         mDatabase.child("phoneNumber").setValue(user.getPhoneNumber());
     }
-
+    //Create a party by its name and other specs attached to it on firebase
     public void createParty(Party party){
-        // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
-        // [END initialize_database_ref]
         mParties = FirebaseDatabase.getInstance().getReference("parties/"+party.getName()+"/");
+        mParties.child("name").setValue(party.getName());
         mParties.child("location").setValue(party.getLocation());
         mParties.child("date").setValue(party.getDate());
         mParties.child("organizer").setValue(party.getOrganizer());

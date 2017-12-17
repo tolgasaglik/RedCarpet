@@ -29,7 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ProfileActivity" />
-        <activity android:name=".Activity.PartyActivity"></activity>
+        <activity android:name=".Activity.PartyCreateActivity" />
+        <activity android:name=".Activity.PartyCheckinActivity"></activity>
     </application>
 
 </manifest>

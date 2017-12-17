@@ -13,20 +13,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.saglik.redcarpetapp.Classes.Party;
 import com.example.saglik.redcarpetapp.Classes.User;
 import com.example.saglik.redcarpetapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Intent intent;
     NavigationView navigationView;
+
+    //Listview Elements
+//    String[] partyNames;
+//    TypedArray partyPics;
+//    String[] partyLocations;
+//    boolean[] partyCheckins;
+//    List<RowItem> rowItems;
+    ListView partyListView;
+    private DatabaseReference mDatabase;
+    private ArrayList<String> partyNames = new ArrayList<>();
 
     boolean isUserAdmin;
     @Override
@@ -36,6 +53,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Display parties as a list
+        partyListView = findViewById(R.id.partyListView);
+
+        refreshPartyList();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +66,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,6 +81,49 @@ public class MainActivity extends AppCompatActivity
         setAdminView();
 
 
+        partyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String partyName = (String) partyListView.getItemAtPosition(i);
+                Intent intent = new Intent(MainActivity.this,PartyCheckinActivity.class);
+                intent.putExtra("partyName", partyName);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void refreshPartyList(){
+
+        final ArrayAdapter<String> partyAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, partyNames);
+        partyListView.setAdapter(partyAdapter);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
+        mDatabase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Party party = dataSnapshot.getValue(Party.class);
+                partyNames.add(party.getName());
+                partyAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     private void setAdminView() {
@@ -73,12 +139,10 @@ public class MainActivity extends AppCompatActivity
                 isUserAdmin =  user.isAdmin();
                 Menu navMenu = navigationView.getMenu();
                 navMenu.findItem(R.id.adminMenu).setVisible(isUserAdmin);
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
     @Override
@@ -109,7 +173,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -122,7 +185,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-            intent = new Intent(MainActivity.this,PartyActivity.class);
+            intent = new Intent(MainActivity.this,PartyCreateActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_manage) {

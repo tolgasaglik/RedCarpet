@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class PartyActivity extends AppCompatActivity {
+public class PartyCreateActivity extends AppCompatActivity {
     private static final String REQUIRED = "REQUIRED";
     User organizer = new User();
     Party party = new Party();
@@ -36,13 +36,10 @@ public class PartyActivity extends AppCompatActivity {
 
         setOrganizerName();
 
-
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
         editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
-
-
     }
 
     private void setOrganizerName() {
@@ -87,7 +84,7 @@ public class PartyActivity extends AppCompatActivity {
         party = new Party(partyName, partyLocation, partyDate, partyInfo, partyOrganizer);
         DatabaseWriter dbWriter = new DatabaseWriter();
         dbWriter.createParty(party);
-        Intent intent = new Intent(PartyActivity.this,MainActivity.class);
+        Intent intent = new Intent(PartyCreateActivity.this,MainActivity.class);
         startActivity(intent);
     }
 }
