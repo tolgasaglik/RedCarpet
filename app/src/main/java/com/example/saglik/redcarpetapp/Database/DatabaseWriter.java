@@ -36,8 +36,7 @@ public class DatabaseWriter {
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
         // [END initialize_database_ref]
-        mDatabase.child("name").setValue(party.getName());
-        mParties = FirebaseDatabase.getInstance().getReference("parties/name/");
+        mParties = FirebaseDatabase.getInstance().getReference("parties/"+party.getName()+"/");
         mParties.child("location").setValue(party.getLocation());
         mParties.child("date").setValue(party.getDate());
         mParties.child("organizer").setValue(party.getOrganizer());
