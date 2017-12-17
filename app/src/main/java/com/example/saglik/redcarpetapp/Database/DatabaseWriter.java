@@ -1,5 +1,6 @@
 package com.example.saglik.redcarpetapp.Database;
 
+import com.example.saglik.redcarpetapp.Classes.Party;
 import com.example.saglik.redcarpetapp.Classes.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -12,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DatabaseWriter {
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, mParties;
 
     public DatabaseWriter() {
 
@@ -29,5 +30,17 @@ public class DatabaseWriter {
         mDatabase.child("location").setValue(user.getLocation());
         mDatabase.child("admin").setValue(user.isAdmin());
         mDatabase.child("phoneNumber").setValue(user.getPhoneNumber());
+    }
+
+    public void createParty(Party party){
+        // [START initialize_database_ref]
+        mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
+        // [END initialize_database_ref]
+        mDatabase.child("name").setValue(party.getName());
+        mParties = FirebaseDatabase.getInstance().getReference("parties/name/");
+        mParties.child("location").setValue(party.getLocation());
+        mParties.child("date").setValue(party.getDate());
+        mParties.child("organizer").setValue(party.getOrganizer());
+        mParties.child("info").setValue(party.getInfo());
     }
 }

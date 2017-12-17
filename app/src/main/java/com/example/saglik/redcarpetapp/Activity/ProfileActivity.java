@@ -65,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
         DatabaseWriter dbWriter = new DatabaseWriter();
         dbWriter.registerUser(user);
         Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
-        //intent.putExtra("type",String.valueOf(isAdmin));
         startActivity(intent);
     }
 
@@ -85,15 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
                     nameText.setText(user.getNickname());
                     locationText.setText(user.getLocation());
                     adminSwitch.setChecked(user.isAdmin());
-                    //Disappear administrative mode from navigation bar if user is not an admin
-                    if(user.isAdmin()){
-
-                    }else{
-
-                    }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
