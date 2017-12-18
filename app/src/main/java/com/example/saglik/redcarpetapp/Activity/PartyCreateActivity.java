@@ -1,10 +1,12 @@
 package com.example.saglik.redcarpetapp.Activity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.saglik.redcarpetapp.Classes.Party;
@@ -18,21 +20,30 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class PartyCreateActivity extends AppCompatActivity {
     private static final String REQUIRED = "REQUIRED";
     User organizer = new User();
     Party party = new Party();
+
     EditText editText1;
     EditText editText2;
     EditText editText3;
     EditText editText4;
 
+    private Button imageButton;
+    private StorageReference mStorage;
+    private static final int GALLERY_INTENT = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_party);
+        setContentView(R.layout.activity_party_create);
         setTitle("Create a new event");
+        imageButton = findViewById(R.id.button2);
+        imageButton.getBackground().setColorFilter(R.drawable.side_nav_bar, PorterDuff.Mode.MULTIPLY);
 
         setOrganizerName();
 
@@ -40,6 +51,19 @@ public class PartyCreateActivity extends AppCompatActivity {
         editText2 = findViewById(R.id.editText2);
         editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+        imageButton = findViewById(R.id.button2);
+        imageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+
+
     }
 
     private void setOrganizerName() {

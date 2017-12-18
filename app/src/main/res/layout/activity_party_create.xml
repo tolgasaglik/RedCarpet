@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.example.saglik.redcarpetapp.Activity.PartyCreateActivity">
 
     <TextView
@@ -21,10 +22,10 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView1"
         android:layout_alignBottom="@id/editText2"
         android:layout_alignEnd="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView1"
         android:gravity="center_vertical"
         android:text="Place:"
         android:textSize="20dp" />
@@ -33,10 +34,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2"
         android:layout_alignBottom="@id/editText3"
         android:layout_alignEnd="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
         android:gravity="center_vertical"
         android:text="Date:"
         android:textSize="20dp" />
@@ -45,10 +46,10 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3"
         android:layout_alignBottom="@id/editText4"
         android:layout_alignEnd="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
         android:gravity="center_vertical"
         android:text="Info:"
         android:textSize="20dp" />
@@ -61,8 +62,8 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textView1"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Give your party a name" />
+        android:hint="Give your party a name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText2"
@@ -72,8 +73,8 @@
         android:layout_below="@+id/editText1"
         android:layout_toEndOf="@+id/textView2"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Set up a place" />
+        android:hint="Set up a place"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText3"
@@ -83,8 +84,8 @@
         android:layout_below="@+id/editText2"
         android:layout_toEndOf="@+id/textView3"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Set up a date" />
+        android:hint="Set up a date"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText4"
@@ -94,8 +95,8 @@
         android:layout_below="@+id/editText3"
         android:layout_toEndOf="@+id/textView4"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Give some extra information" />
+        android:hint="Give some extra information"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/button1"
@@ -107,5 +108,15 @@
         android:onClick="createEvent"
         android:text="Create event"
         android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/editText4"
+        android:onClick="createEvent"
+        android:text="Upload a party image"
+        android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
 </RelativeLayout>
