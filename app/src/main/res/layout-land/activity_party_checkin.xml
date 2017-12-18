@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/registerButton"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
         android:foregroundGravity="center" />
 
 
@@ -18,7 +19,7 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
+        android:layout_alignParentBottom="true"
         android:textColor="@color/colorPrimary"
         android:text="register this event"/>
 
@@ -26,15 +27,17 @@
         android:id="@+id/locationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/registerButton"
+        android:layout_toEndOf="@id/imageView"
         android:minLines="2"
+        android:layout_alignParentTop="true"
         android:textSize="20dp"
         android:text="Location" />
-
+    
     <TextView
         android:id="@+id/organizerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageView"
         android:textSize="20dp"
         android:layout_below="@+id/locationView"/>
 
@@ -42,6 +45,7 @@
         android:id="@+id/dateView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageView"
         android:textSize="20dp"
         android:layout_below="@id/organizerView"/>
 
@@ -49,14 +53,9 @@
         android:id="@+id/infoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageView"
         android:textSize="20dp"
         android:layout_below="@+id/dateView"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/infoView">
-    </ListView>
 
 
 </RelativeLayout>

@@ -16,6 +16,7 @@ public class Party {
     private String date;
     private String info;
     private String organizer;
+    private String imageLink;
     private List<String> participants = new List<String>() {
         @Override
         public int size() {
@@ -143,12 +144,13 @@ public class Party {
 
     }
 
-    public Party(String name, String location, String date, String info, String organizer){
+    public Party(String name, String location, String date, String info, String organizer, String imageLink){
         this.name=name;
         this.location=location;
         this.date=date;
         this.info = info;
         this.organizer=organizer;
+        this.imageLink=imageLink;
     }
 
     public String getName() {
@@ -190,6 +192,10 @@ public class Party {
     public void setOrganizer(String organizer) {
         this.organizer = organizer;
     }
+
+    public String getImageLink() {return imageLink; }
+
+    public void setImageLink(String imageLink) {this.imageLink = imageLink;}
 
     public List<String> getParticipants() {
         return participants;

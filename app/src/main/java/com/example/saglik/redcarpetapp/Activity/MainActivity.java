@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Current Events");
         checkPermissions();
         //Display parties as a list
         partyListView = findViewById(R.id.partyListView);

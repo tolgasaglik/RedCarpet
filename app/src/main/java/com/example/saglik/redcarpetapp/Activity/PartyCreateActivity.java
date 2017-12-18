@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.saglik.redcarpetapp.Classes.Party;
@@ -33,13 +34,14 @@ public class PartyCreateActivity extends AppCompatActivity {
     Party party = new Party();
     private Button imageButton;
     private StorageReference mStorage;
-
+    Uri uri;
     EditText editText1;
     EditText editText2;
     EditText editText3;
     EditText editText4;
-
+    private String imageLink;
     private int GALLERY_INTENT = 2;
+    ImageView partyImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class PartyCreateActivity extends AppCompatActivity {
         editText2 = findViewById(R.id.editText2);
         editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
+        partyImage = findViewById(R.id.party_image);
 
         mStorage = FirebaseStorage.getInstance().getReference();
         imageButton = findViewById(R.id.button2);
@@ -66,21 +69,15 @@ public class PartyCreateActivity extends AppCompatActivity {
                 startActivityForResult(intent,GALLERY_INTENT);
             }
         });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==GALLERY_INTENT && resultCode==RESULT_OK){
-            Uri uri = data.getData();
-            StorageReference filePath = mStorage.child("party_images").child(uri.getLastPathSegment());
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(PartyCreateActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
-                }
-            });
+            uri = data.getData();
+            partyImage.setImageURI(uri);
+
         }
     }
     private void setOrganizerName() {
@@ -122,10 +119,23 @@ public class PartyCreateActivity extends AppCompatActivity {
             editText4.setError(REQUIRED);
             return;
         }
-        party = new Party(partyName, partyLocation, partyDate, partyInfo, partyOrganizer);
-        DatabaseWriter dbWriter = new DatabaseWriter();
-        dbWriter.createParty(party);
-        Intent intent = new Intent(PartyCreateActivity.this,MainActivity.class);
-        startActivity(intent);
+        party = new Party(partyName, partyLocation, partyDate, partyInfo, partyOrganizer, imageLink);
+        if(uri == null){
+            Toast.makeText(PartyCreateActivity.this, "Error! No image selected", Toast.LENGTH_LONG).show();
+        }
+        else {
+            StorageReference filePath = mStorage.child("party_images").child(uri.getLastPathSegment());
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imageLink = taskSnapshot.getDownloadUrl().toString();
+                    Toast.makeText(PartyCreateActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
+                }
+            });
+            DatabaseWriter dbWriter = new DatabaseWriter();
+            dbWriter.createParty(party);
+            Intent intent = new Intent(PartyCreateActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 }

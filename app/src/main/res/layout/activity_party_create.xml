@@ -119,4 +119,13 @@
         android:text="Upload a party image"
         android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
+    <ImageView
+        android:id="@+id/party_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button1"
+        android:foregroundGravity="center"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        android:layout_below="@id/button2"/>
+
 </RelativeLayout>
