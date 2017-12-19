@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.saglik.redcarpetapp.Activity.PartyCheckinActivity">
-
-
+    tools:context="com.example.saglik.redcarpetapp.Activities.PartyCheckinActivity">
 
 
     <LinearLayout
         android:id="@+id/imageLayout"
         android:layout_width="360dp"
         android:layout_height="240dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
@@ -28,15 +26,33 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageLayout"
-        android:textColor="@color/colorPrimary"
-        android:text="register this event"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageLayout"
+        android:text="unregister"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary" />
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/participantButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/registerButton"
+        android:layout_below="@id/imageLayout"
+        android:text="participants"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/mapsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/participantButton"
+        android:layout_below="@id/imageLayout"
+        android:text="google maps"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/locationView"
@@ -44,35 +60,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/registerButton"
         android:minLines="2"
-        android:textSize="20dp"
-        android:text="Location" />
+        android:text="Location"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/organizerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_below="@+id/locationView"/>
+        android:layout_below="@+id/locationView"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/dateView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_below="@id/organizerView"/>
+        android:layout_below="@id/organizerView"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/infoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_below="@+id/dateView"/>
+        android:layout_below="@+id/dateView"
+        android:textSize="20dp" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/infoView">
-    </ListView>
+        android:layout_below="@id/infoView"></ListView>
 
 
 </RelativeLayout>

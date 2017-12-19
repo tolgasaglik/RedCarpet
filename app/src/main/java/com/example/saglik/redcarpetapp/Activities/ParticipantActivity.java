@@ -1,4 +1,4 @@
-package com.example.saglik.redcarpetapp.Activity;
+package com.example.saglik.redcarpetapp.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

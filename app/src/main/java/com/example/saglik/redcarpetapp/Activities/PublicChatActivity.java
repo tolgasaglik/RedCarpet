@@ -1,4 +1,4 @@
-package com.example.saglik.redcarpetapp.Activity;
+package com.example.saglik.redcarpetapp.Activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -9,18 +9,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.saglik.redcarpetapp.Classes.ChatMessage;
 import com.example.saglik.redcarpetapp.R;
-import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class PublicChatActivity extends AppCompatActivity {
-    private static final int SIGN_IN_REQUEST_CODE = 1;
     private FirebaseAnalytics mFirebaseAnalytics;
     String userName;
 
@@ -61,30 +58,6 @@ public class PublicChatActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == SIGN_IN_REQUEST_CODE) {
-            if(resultCode == RESULT_OK) {
-                Toast.makeText(this,
-                        "Successfully signed in. Welcome!",
-                        Toast.LENGTH_LONG)
-                        .show();
-                displayChatMessages();
-            } else {
-                Toast.makeText(this,
-                        "We couldn't sign you in. Please try again later.",
-                        Toast.LENGTH_LONG)
-                        .show();
-
-                // Close the app
-                finish();
-            }
-        }
-
-    }
 
     private void displayChatMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);

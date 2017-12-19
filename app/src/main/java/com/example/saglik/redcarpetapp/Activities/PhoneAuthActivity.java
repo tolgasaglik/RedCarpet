@@ -1,13 +1,9 @@
-package com.example.saglik.redcarpetapp.Activity;
+package com.example.saglik.redcarpetapp.Activities;
 
-        import android.Manifest;
         import android.content.Intent;
-        import android.content.pm.PackageManager;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
         import android.support.design.widget.Snackbar;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AppCompatActivity;
         import android.text.TextUtils;
         import android.util.Log;
@@ -17,7 +13,6 @@ package com.example.saglik.redcarpetapp.Activity;
         import android.widget.EditText;
         import android.widget.TextView;
 
-        import com.example.saglik.redcarpetapp.Classes.User;
         import com.example.saglik.redcarpetapp.R;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
@@ -35,8 +30,6 @@ package com.example.saglik.redcarpetapp.Activity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-        import java.util.ArrayList;
-        import java.util.List;
         import java.util.concurrent.TimeUnit;
 
 public class PhoneAuthActivity extends AppCompatActivity implements

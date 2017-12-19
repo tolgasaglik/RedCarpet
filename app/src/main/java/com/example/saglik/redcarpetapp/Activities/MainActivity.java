@@ -1,4 +1,4 @@
-package com.example.saglik.redcarpetapp.Activity;
+package com.example.saglik.redcarpetapp.Activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,8 +33,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,21 +74,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-
         //Unused buttons
         fab.setVisibility(View.INVISIBLE);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         //Edit visibility of admin mode
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -100,10 +93,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         headerText2 = headerView.findViewById(R.id.headerTExt2);
         headerText1.setText("RedCarpet");
 
-
         navigationView.setNavigationItemSelectedListener(this);
         setAdminView();
-
 
         partyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

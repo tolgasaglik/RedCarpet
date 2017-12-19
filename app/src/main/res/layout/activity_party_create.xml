@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.saglik.redcarpetapp.Activity.PartyCreateActivity">
+    tools:context="com.example.saglik.redcarpetapp.Activities.PartyCreateActivity">
 
     <TextView
         android:id="@+id/textView1"
