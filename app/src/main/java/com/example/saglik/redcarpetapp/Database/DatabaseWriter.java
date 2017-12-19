@@ -31,7 +31,7 @@ public class DatabaseWriter {
     }
     //Create a party by its name and other specs attached to it on firebase
     public void createParty(Party party){
-        mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
+        //mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
         mParties = FirebaseDatabase.getInstance().getReference("parties/"+party.getName()+"/");
         mParties.child("name").setValue(party.getName());
         mParties.child("location").setValue(party.getLocation());
@@ -39,5 +39,24 @@ public class DatabaseWriter {
         mParties.child("organizer").setValue(party.getOrganizer());
         mParties.child("info").setValue(party.getInfo());
         mParties.child("URL").setValue(party.getImageLink());
+    }
+
+    public void addParticipantToParty(String partyID){
+        String userID = getUserID();
+        mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyID+"/participants/");
+        mDatabase.child(userID).setValue(userID);
+
+    }
+
+    public void removeParticipanFromParty (String partyID){
+        String userID = getUserID();
+        mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyID+"/participants/");
+        mDatabase.child(userID).removeValue();
+    }
+
+    public String getUserID(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser userA = mAuth.getCurrentUser();
+        return userA.getUid();
     }
 }

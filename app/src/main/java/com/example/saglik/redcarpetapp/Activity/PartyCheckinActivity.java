@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.example.saglik.redcarpetapp.Classes.Party;
 import com.example.saglik.redcarpetapp.Classes.User;
+import com.example.saglik.redcarpetapp.Database.DatabaseWriter;
 import com.example.saglik.redcarpetapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +34,8 @@ public class PartyCheckinActivity extends AppCompatActivity {
     Party currentParty = new Party();
     User user = new User();
     DatabaseReference mDatabase;
+    String partyName;
+    boolean isParticipant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_checkin);
 
         Intent intent = getIntent();
-        String partyName = intent.getStringExtra("partyName");
+        partyName = intent.getStringExtra("partyName");
         setTitle(partyName);
 
         organizerView = findViewById(R.id.organizerView);
@@ -54,8 +59,14 @@ public class PartyCheckinActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                FirebaseUser userA = mAuth.getCurrentUser();
+                String userID = userA.getUid();
                 currentParty = dataSnapshot.getValue(Party.class);
+                currentParty.setKey(dataSnapshot.getKey());
+                isParticipant = dataSnapshot.child("participants").child(userID).exists();
                 populateViews();
+                setRegisterButton();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -74,9 +85,26 @@ public class PartyCheckinActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String partyID = currentParty.getKey();
+                DatabaseWriter dbWriter = new DatabaseWriter();
+                if(registerButton.getText().equals("REGISTER")){
+                    dbWriter.addParticipantToParty(partyID);
+                    registerButton.setText("UNREGISTER");
+                }
+                else if(registerButton.getText().equals("UNREGISTER")){
+                    dbWriter.removeParticipanFromParty(partyID);
+                    registerButton.setText("REGISTER");
+                }
 
             }
         });
+    }
+
+    public void setRegisterButton(){
+        if(isParticipant)
+            registerButton.setText("UNREGISTER");
+        else
+            registerButton.setText("REGISTER");
     }
 
     private void populateViews() {
@@ -84,6 +112,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
         locationView.setText("Location(Click to navigate): "+currentParty.getLocation());
         dateView.setText("Event Date: "+currentParty.getDate());
         infoView.setText("Event Info: "+currentParty.getInfo());
+//        Picasso.with(PartyCheckinActivity.this).load(currentParty.getImageLink()).resize(200,200).centerCrop().into(imageView);
         Picasso.with(PartyCheckinActivity.this).load(currentParty.getImageLink()).fit().centerCrop()
                 .placeholder(R.drawable.downloading) //image that you show during the download
                 .error(R.drawable.downloaderror) //image error if doesn't download it correctly

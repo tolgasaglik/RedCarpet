@@ -17,9 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.saglik.redcarpetapp.Classes.Party;
 import com.example.saglik.redcarpetapp.Classes.User;
@@ -33,12 +35,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Intent intent;
     NavigationView navigationView;
+    TextView headerText1;
+    TextView headerText2;
+    User user = new User();
 
     String[] permissions = new String[]{
             Manifest.permission.INTERNET,
@@ -75,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //Unused buttons
+        fab.setVisibility(View.INVISIBLE);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,6 +95,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Edit visibility of admin mode
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        headerText1=headerView.findViewById(R.id.headerText1);
+        headerText2 = headerView.findViewById(R.id.headerTExt2);
+        headerText1.setText("RedCarpet");
+
+
         navigationView.setNavigationItemSelectedListener(this);
         setAdminView();
 
@@ -143,7 +159,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
+                user = dataSnapshot.getValue(User.class);
+                headerText2.setText(user.getNickname().toUpperCase());
                 isUserAdmin =  user.isAdmin();
                 Menu navMenu = navigationView.getMenu();
                 navMenu.findItem(R.id.adminMenu).setVisible(isUserAdmin);
@@ -194,18 +211,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_slideshow) {
             intent = new Intent(MainActivity.this,PartyCreateActivity.class);
-            startActivity(intent);
-
         } else if (id == R.id.nav_manage) {
             intent = new Intent(MainActivity.this,ProfileActivity.class);
-            startActivity(intent);
-
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            intent = new Intent(MainActivity.this,PublicChatActivity.class);
+            intent.putExtra("name", user.getNickname());
         }
-
+        startActivity(intent);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
