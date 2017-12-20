@@ -144,6 +144,128 @@ public class FriendsActivity extends AppCompatActivity {
             return null;
         }
     };
+    List<String> contactDisplayList = new List<String>(){
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @NonNull
+        @Override
+        public Iterator<String> iterator() {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @NonNull
+        @Override
+        public <T> T[] toArray(@NonNull T[] ts) {
+            return null;
+        }
+
+        @Override
+        public boolean add(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(@NonNull Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(@NonNull Collection<? extends String> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(int i, @NonNull Collection<? extends String> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(@NonNull Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(@NonNull Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public String get(int i) {
+            return null;
+        }
+
+        @Override
+        public String set(int i, String s) {
+            return null;
+        }
+
+        @Override
+        public void add(int i, String s) {
+
+        }
+
+        @Override
+        public String remove(int i) {
+            return null;
+        }
+
+        @Override
+        public int indexOf(Object o) {
+            return 0;
+        }
+
+        @Override
+        public int lastIndexOf(Object o) {
+            return 0;
+        }
+
+        @NonNull
+        @Override
+        public ListIterator<String> listIterator() {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public ListIterator<String> listIterator(int i) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public List<String> subList(int i, int i1) {
+            return null;
+        }
+    };
 
     Contact contact = new Contact();
     @Override
@@ -160,7 +282,7 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void refreshFriendList() {
-        ArrayAdapter<Contact> friendAdapter = new ArrayAdapter<Contact>(getApplicationContext(), android.R.layout.simple_list_item_1, contactList);
+        ArrayAdapter<String> friendAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, contactDisplayList);
         friendsListView.setAdapter(friendAdapter);
     }
 
@@ -189,6 +311,7 @@ public class FriendsActivity extends AppCompatActivity {
                         contact.setContactName(name);
                         contact.setContactNumber(phoneNo);
                         contactList.add(contact);
+                        contactDisplayList.add(name+"\n"+phoneNo);
                         String TAG = "Contact Details";
                         Log.i(TAG, "Name: " + name);
                         Log.i(TAG, "Phone Number: " + phoneNo);

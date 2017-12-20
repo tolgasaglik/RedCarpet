@@ -34,8 +34,9 @@ public class DatabaseWriter {
     }
     //Create a party by its name and other specs attached to it on firebase
     public void createParty(Party party){
-        //mDatabase = FirebaseDatabase.getInstance().getReference("parties/");
-        mParties = FirebaseDatabase.getInstance().getReference("parties/"+party.getName()+"/");
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        String key = db.getReference("parties/").push().getKey();
+        mParties = FirebaseDatabase.getInstance().getReference("parties/"+key+"/");
         mParties.child("name").setValue(party.getName());
         mParties.child("location").setValue(party.getLocation());
         mParties.child("date").setValue(party.getDate());
