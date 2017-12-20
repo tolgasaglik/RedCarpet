@@ -3,14 +3,11 @@ package com.example.saglik.redcarpetapp.Activities;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.example.saglik.redcarpetapp.Classes.Contact;
 import com.example.saglik.redcarpetapp.Classes.User;
 import com.example.saglik.redcarpetapp.R;
@@ -19,13 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+
 
 public class FriendsActivity extends AppCompatActivity {
     ListView friendsListView;

@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.example.saglik.redcarpetapp.Classes.Party;
 import com.example.saglik.redcarpetapp.Classes.User;
 import com.example.saglik.redcarpetapp.R;

@@ -102,6 +102,7 @@ public class PartyCreateActivity extends AppCompatActivity {
         String partyDate = editText3.getText().toString();
         String partyInfo = editText4.getText().toString();
         String partyOrganizer = organizer.getNickname();
+        String organizerRating = organizer.getRating();
         if (TextUtils.isEmpty(partyName)) {
             editText1.setError(REQUIRED);
             return;
@@ -119,7 +120,7 @@ public class PartyCreateActivity extends AppCompatActivity {
             editText4.setError(REQUIRED);
             return;
         }
-        party = new Party(partyName, partyLocation, partyDate, partyInfo, partyOrganizer, imageLink);
+        party = new Party(partyName, partyLocation, partyDate, partyInfo, partyOrganizer, organizerRating,imageLink);
         if(uri == null){
             Toast.makeText(PartyCreateActivity.this, "Error! No image selected", Toast.LENGTH_LONG).show();
         }

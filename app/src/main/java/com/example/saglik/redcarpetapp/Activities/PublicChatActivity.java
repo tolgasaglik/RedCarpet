@@ -1,6 +1,7 @@
 package com.example.saglik.redcarpetapp.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,16 +41,18 @@ public class PublicChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText input = (EditText)findViewById(R.id.input);
-
+                String temp =input.getText().toString();
+                if(temp.equals(null)){
+                    input.setError("Required");
+                    return;
+                }
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 FirebaseDatabase.getInstance()
                         .getReference("/chatrooms/public_chatroom")
                         .push()
                         .setValue(new ChatMessage(input.getText().toString(),
-                                FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getDisplayName())
+                                userName)
                         );
 
                 // Clear the input
@@ -57,7 +60,6 @@ public class PublicChatActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void displayChatMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
@@ -73,7 +75,7 @@ public class PublicChatActivity extends AppCompatActivity {
 
                 // Set their text
                 messageText.setText(model.getMessageText());
-                messageUser.setText(userName);
+                messageUser.setText(model.getMessageUser());
 
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",

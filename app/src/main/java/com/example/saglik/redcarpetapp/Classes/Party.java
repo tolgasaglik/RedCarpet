@@ -18,18 +18,20 @@ public class Party {
     private String info;
     private String organizer;
     private String imageLink;
+    private String organizerRating;
 
     public Party(){
 
     }
 
-    public Party(String name, String location, String date, String info, String organizer, String imageLink){
+    public Party(String name, String location, String date, String info, String organizer, String organizerRating, String imageLink){
         this.name=name;
         this.location=location;
         this.date=date;
         this.info = info;
         this.organizer=organizer;
         this.imageLink=imageLink;
+        this.organizerRating=organizerRating;
     }
 
     public String getKey() {
@@ -84,4 +86,11 @@ public class Party {
 
     public void setImageLink(String imageLink) {this.imageLink = imageLink;}
 
+    public String getOrganizerRating() {
+        return organizerRating;
+    }
+
+    public void setOrganizerRating(String organizerRating) {
+        this.organizerRating = organizerRating;
+    }
 }
