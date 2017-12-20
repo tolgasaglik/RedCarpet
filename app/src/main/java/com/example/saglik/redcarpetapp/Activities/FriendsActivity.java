@@ -12,8 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.saglik.redcarpetapp.Classes.Contact;
+import com.example.saglik.redcarpetapp.Classes.User;
 import com.example.saglik.redcarpetapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,250 +29,8 @@ import java.util.ListIterator;
 
 public class FriendsActivity extends AppCompatActivity {
     ListView friendsListView;
-    List<Contact> contactList = new List<Contact>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @NonNull
-        @Override
-        public Iterator<Contact> iterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @NonNull
-        @Override
-        public <T> T[] toArray(@NonNull T[] ts) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Contact contact) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(@NonNull Collection<? extends Contact> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(int i, @NonNull Collection<? extends Contact> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Contact get(int i) {
-            return null;
-        }
-
-        @Override
-        public Contact set(int i, Contact contact) {
-            return null;
-        }
-
-        @Override
-        public void add(int i, Contact contact) {
-
-        }
-
-        @Override
-        public Contact remove(int i) {
-            return null;
-        }
-
-        @Override
-        public int indexOf(Object o) {
-            return 0;
-        }
-
-        @Override
-        public int lastIndexOf(Object o) {
-            return 0;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<Contact> listIterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<Contact> listIterator(int i) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public List<Contact> subList(int i, int i1) {
-            return null;
-        }
-    };
-    List<String> contactDisplayList = new List<String>(){
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @NonNull
-        @Override
-        public Iterator<String> iterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @NonNull
-        @Override
-        public <T> T[] toArray(@NonNull T[] ts) {
-            return null;
-        }
-
-        @Override
-        public boolean add(String s) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(@NonNull Collection<? extends String> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(int i, @NonNull Collection<? extends String> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public String get(int i) {
-            return null;
-        }
-
-        @Override
-        public String set(int i, String s) {
-            return null;
-        }
-
-        @Override
-        public void add(int i, String s) {
-
-        }
-
-        @Override
-        public String remove(int i) {
-            return null;
-        }
-
-        @Override
-        public int indexOf(Object o) {
-            return 0;
-        }
-
-        @Override
-        public int lastIndexOf(Object o) {
-            return 0;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<String> listIterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<String> listIterator(int i) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public List<String> subList(int i, int i1) {
-            return null;
-        }
-    };
+    ArrayList<Contact> contactList = new ArrayList<Contact>();
+    ArrayList<String> contactDisplayList = new ArrayList<String>();
 
     Contact contact = new Contact();
     @Override
@@ -276,9 +41,28 @@ public class FriendsActivity extends AppCompatActivity {
         friendsListView = findViewById(R.id.friendsListView);
 
         getContactList();
-
+        matchUsersWithContacts();
         refreshFriendList();
 
+    }
+
+    private void matchUsersWithContacts() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users/");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    User user = ds.getValue(User.class);
+                    for(Contact c : contactList){
+                        if(user.getPhoneNumber()==c.getContactNumber()){
+                            contactDisplayList.add(c.getContactName()+"\n"+c.getContactNumber());
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     private void refreshFriendList() {
@@ -311,7 +95,6 @@ public class FriendsActivity extends AppCompatActivity {
                         contact.setContactName(name);
                         contact.setContactNumber(phoneNo);
                         contactList.add(contact);
-                        contactDisplayList.add(name+"\n"+phoneNo);
                         String TAG = "Contact Details";
                         Log.i(TAG, "Name: " + name);
                         Log.i(TAG, "Phone Number: " + phoneNo);
