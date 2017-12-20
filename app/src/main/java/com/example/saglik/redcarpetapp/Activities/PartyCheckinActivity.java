@@ -147,7 +147,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
 
     private void populateViews() {
         organizerView.setText("Event Organizer: "+currentParty.getOrganizer());
-        locationView.setText("Location(Click to navigate): "+currentParty.getLocation());
+        locationView.setText("Location: "+currentParty.getLocation());
         dateView.setText("Event Date: "+currentParty.getDate());
         infoView.setText("Event Info: "+currentParty.getInfo());
 //        Picasso.with(PartyCheckinActivity.this).load(currentParty.getImageLink()).resize(200,200).centerCrop().into(imageView);

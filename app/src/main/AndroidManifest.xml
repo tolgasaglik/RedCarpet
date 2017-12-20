@@ -40,7 +40,8 @@
         <activity android:name=".Activities.PartyCreateActivity" />
         <activity android:name=".Activities.PartyCheckinActivity" />
         <activity android:name=".Activities.ParticipantActivity" />
-        <activity android:name=".Activities.PublicChatActivity"></activity>
+        <activity android:name=".Activities.PublicChatActivity" />
+        <activity android:name=".Activities.FriendsActivity"></activity>
     </application>
 
 </manifest>

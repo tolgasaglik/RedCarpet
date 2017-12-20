@@ -10,16 +10,37 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_width="300dp"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         android:foregroundGravity="center" />
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:textColor="@color/colorPrimary"
         android:text="register this event"/>
+
+    <Button
+        android:id="@+id/participantButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/registerButton"
+        android:layout_alignParentBottom="true"
+        android:text="participants"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/mapsButton"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/participantButton"
+        android:layout_alignParentBottom="true"
+        android:text="google maps"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"/>
+
 
     <TextView
         android:id="@+id/locationView"
@@ -52,16 +73,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/imageView"
+        android:minLines="3"
         android:textSize="20dp"
         android:layout_below="@+id/dateView"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/dateView"
-        android:layout_marginStart="65dp"
-        android:orientation="horizontal"></LinearLayout>
 
 
 </RelativeLayout>

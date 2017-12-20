@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Current Events");
+        setTitle("RedEvents");
         checkPermissions();
         //Display parties as a list
         partyListView = findViewById(R.id.partyListView);
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_manage) {
             intent = new Intent(MainActivity.this,ProfileActivity.class);
         } else if (id == R.id.nav_share) {
-
+            intent = new Intent(MainActivity.this, FriendsActivity.class);
         } else if (id == R.id.nav_send) {
             intent = new Intent(MainActivity.this,PublicChatActivity.class);
             intent.putExtra("name", user.getNickname());
