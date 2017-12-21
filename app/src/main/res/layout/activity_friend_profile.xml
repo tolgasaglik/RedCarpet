@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.saglik.redcarpet.Activities.FriendProfileActivity">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="Nickname: "
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView1"
+        android:layout_alignBottom="@id/editText2"
+        android:layout_toStartOf="@+id/editText2"
+        android:gravity="center_vertical"
+        android:text="PhoneNb: "
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_toStartOf="@+id/editText2"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="Location: "
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText4"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:layout_toStartOf="@+id/editText3"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="Rating: "
+        android:textSize="25dp" />
+
+
+
+    <TextView
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView1"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:inputType="textPersonName"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/editText1"
+        android:layout_toEndOf="@+id/textView1"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@id/editText2"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/editText2"
+        android:layout_toEndOf="@+id/textView3"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="20dp"/>
+
+    <RatingBar
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+
+
+
+</RelativeLayout>

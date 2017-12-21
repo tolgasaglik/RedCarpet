@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context="com.example.saglik.redcarpetapp.Activities.PartyCreateActivity">
+    tools:context="com.example.saglik.redcarpet.Activities.PartyCreateActivity">
 
     <TextView
         android:id="@+id/textView1"
@@ -117,7 +116,7 @@
         android:layout_below="@id/editText4"
         android:onClick="createEvent"
         android:text="Upload a party image"
-        android:theme="@style/ThemeOverlay.MyDarkButton"/>
+        android:theme="@style/AlertDialog.AppCompat.Light"/>
 
     <ImageView
         android:id="@+id/party_image"

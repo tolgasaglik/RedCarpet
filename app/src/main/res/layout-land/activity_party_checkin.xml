@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.saglik.redcarpetapp.Activities.PartyCheckinActivity">
+    tools:context="com.example.saglik.redcarpet.Activities.PartyCheckinActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -51,7 +51,7 @@
         android:layout_alignParentTop="true"
         android:textSize="20dp"
         android:text="Location" />
-    
+
     <TextView
         android:id="@+id/organizerView"
         android:layout_width="match_parent"
@@ -76,6 +76,8 @@
         android:minLines="3"
         android:textSize="20dp"
         android:layout_below="@+id/dateView"/>
+
+
 
 
 </RelativeLayout>
