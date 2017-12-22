@@ -42,12 +42,11 @@ public class ProfileActivity extends AppCompatActivity {
         nameText = findViewById(R.id.editText1);
         locationText = findViewById(R.id.editText2);
         adminSwitch = (Switch)  findViewById(R.id.switch1);
-        privacySwitch = findViewById(R.id.switch2);
+        privacySwitch = (Switch)findViewById(R.id.switch2);
 
         setEditTextViews();
-
-
     }
+
 
     public void saveAndProceed(View view){
         String nickname = nameText.getText().toString();
@@ -63,10 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
             locationText.setError(REQUIRED);
             return;
         }
-
-        User user = new User(nickname,location, isPrivate, isAdmin);
+        User userDB = new User(nickname,location, isPrivate, isAdmin);
         DatabaseWriter dbWriter = new DatabaseWriter();
-        dbWriter.registerUser(user);
+        dbWriter.registerUser(userDB);
         Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
         startActivity(intent);
     }
@@ -76,18 +74,22 @@ public class ProfileActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         userID = currentUser.getUid();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("users"+"/"+userID);
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("users/"+userID+"/");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() == null){}                    //If user exist show the old informations
-                else {
-                    User user = dataSnapshot.getValue(User.class);
-                    //user = getData(dataSnapshot, userId);
-                    nameText.setText(user.getNickname());
-                    locationText.setText(user.getLocation());
-                    adminSwitch.setChecked(user.isAdmin());
-                }
+                User user = dataSnapshot.getValue(User.class);
+                String nickname = user.getNickname();
+                String location = user.getLocation();
+                String hidden = dataSnapshot.child("isPrivate").getValue().toString();
+                boolean isAdmin = user.isAdmin();
+                nameText.setText(nickname);
+                locationText.setText(location);
+                if (hidden.equals("true"))
+                    privacySwitch.setChecked(true);
+                else
+                    privacySwitch.setChecked(false);
+                adminSwitch.setChecked(isAdmin);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -51,7 +51,7 @@ public class FriendProfileActivity extends AppCompatActivity {
     }
 
     private void setFriendProfile() {
-        friendPrivacy = friend.isPrivate();
+        friendPrivacy = friend.checkPrivate();
         textView1.setText(friend.getNickname());
 
         if(!friendPrivacy){

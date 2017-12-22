@@ -20,6 +20,7 @@ public class User {
         this.nickname=name;
         this.location=location;
         this.admin = admin;
+        this.isPrivate=isPrivate;
     }
 
     public String getNickname() {
@@ -58,11 +59,11 @@ public class User {
         this.rating = rating;
     }
 
-    public boolean isPrivate() {
+    public boolean checkPrivate() {
         return isPrivate;
     }
 
-    public void setPrivate(boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 }

@@ -30,6 +30,7 @@ public class DatabaseWriter {
         mDatabase.child("nickname").setValue(user.getNickname());
         mDatabase.child("location").setValue(user.getLocation());
         mDatabase.child("admin").setValue(user.isAdmin());
+        mDatabase.child("isPrivate").setValue(user.checkPrivate());
         mDatabase.child("phoneNumber").setValue(user.getPhoneNumber());
     }
     //Create a party by its name and other specs attached to it on firebase

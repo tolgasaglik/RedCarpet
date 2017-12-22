@@ -78,8 +78,7 @@
         android:layout_below="@+id/editText2"
         android:layout_marginStart="72dp"
         android:layout_alignParentRight="true"
-        android:textOff="OFF"
-        android:textOn="ON" />
+    />
 
     <Switch
         android:id="@+id/switch2"
@@ -88,14 +87,12 @@
         android:layout_below="@id/switch1"
         android:layout_marginStart="72dp"
         android:layout_alignParentRight="true"
-        android:textOff="OFF"
-        android:textOn="ON"/>
+    />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
