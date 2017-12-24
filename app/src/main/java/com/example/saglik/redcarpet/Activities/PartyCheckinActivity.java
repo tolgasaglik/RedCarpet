@@ -103,7 +103,8 @@ public class PartyCheckinActivity extends AppCompatActivity {
                 userID = dbWriter.getUserID();
                 if(registerButton.getText().equals("REGISTER")){
                     dbWriter.addParticipantToParty(partyID);
-                    participantNames.add(userName);
+                    if(!participantNames.contains(userName))
+                        participantNames.add(userName);
                     registerButton.setText("UNREGISTER");
                 }
                 else if(registerButton.getText().equals("UNREGISTER")){
@@ -119,7 +120,9 @@ public class PartyCheckinActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    participantNames.add(ds.getValue().toString());
+                    String data = ds.getValue().toString();
+                    if(!participantNames.contains(data))
+                        participantNames.add(data);
                 }
             }
             @Override

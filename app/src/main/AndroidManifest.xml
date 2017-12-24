@@ -28,7 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ProfileActivity" />
+        <activity
+            android:name=".Activities.ProfileActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Activities.PartyCreateActivity" />
         <activity android:name=".Activities.PartyCheckinActivity" />
         <activity android:name=".Activities.ParticipantActivity" />
