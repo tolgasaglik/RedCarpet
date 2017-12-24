@@ -31,6 +31,7 @@
                 android:icon="@drawable/ic_menu_slideshow"
                 android:title="Create Event" />
         </menu>
+
     </item>
 
 </menu>

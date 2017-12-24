@@ -55,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ListView partyListView;
     private DatabaseReference mDatabase;
     private ArrayList<String> partyNames = new ArrayList<>();
-
+    private ArrayList<String> partyKeys = new ArrayList<>();
     boolean isUserAdmin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-        //Unused buttons
+        //Unused button
         fab.setVisibility(View.INVISIBLE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -100,8 +101,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String partyName = (String) partyListView.getItemAtPosition(i);
+                String partyID = partyKeys.get(i);
                 Intent intent = new Intent(MainActivity.this,PartyCheckinActivity.class);
-                intent.putExtra("partyName", partyName);
+                intent.putExtra("partyname", partyName);
+                intent.putExtra("partyid", partyID);
+                intent.putExtra("username", user.getNickname());
                 startActivity(intent);
             }
         });
@@ -117,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Party party = dataSnapshot.getValue(Party.class);
+                String key = dataSnapshot.getKey().toString();
+                partyKeys.add(key);
                 partyNames.add(party.getName());
                 partyAdapter.notifyDataSetChanged();
             }

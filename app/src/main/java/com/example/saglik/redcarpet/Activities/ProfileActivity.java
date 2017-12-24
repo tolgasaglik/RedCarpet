@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Switch;
 
 import com.example.saglik.redcarpet.Classes.User;
@@ -26,11 +27,11 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText locationText;
     private Switch adminSwitch;
     private Switch privacySwitch;
+    private RatingBar ratingBar;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private String userID;
     private FirebaseUser currentUser;
-    private MenuItem adminMenu;
 
 
     @Override
@@ -43,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         locationText = findViewById(R.id.editText2);
         adminSwitch = (Switch)  findViewById(R.id.switch1);
         privacySwitch = (Switch)findViewById(R.id.switch2);
+        ratingBar = findViewById(R.id.ratingBar);
 
         setEditTextViews();
     }
@@ -90,6 +92,13 @@ public class ProfileActivity extends AppCompatActivity {
                 else
                     privacySwitch.setChecked(false);
                 adminSwitch.setChecked(isAdmin);
+                if(isAdmin) {
+                    ratingBar.setVisibility(View.VISIBLE);
+                    ratingBar.setRating(user.getRating());
+                }else{
+                    ratingBar.setVisibility(View.INVISIBLE);
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -122,7 +122,7 @@ public class PartyCreateActivity extends AppCompatActivity {
         }
         party = new Party(partyName, partyLocation, partyDate, partyInfo, partyOrganizer, organizerRating, imageLink);
         if(uri == null){
-            Toast.makeText(PartyCreateActivity.this, "Error! No image selected", Toast.LENGTH_LONG).show();
+            Toast.makeText(PartyCreateActivity.this, "Please select an image!", Toast.LENGTH_LONG).show();
         }
         else {
             StorageReference filePath = mStorage.child("party_images").child(uri.getLastPathSegment());
@@ -130,7 +130,7 @@ public class PartyCreateActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     imageLink = taskSnapshot.getDownloadUrl().toString();
-                    Toast.makeText(PartyCreateActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PartyCreateActivity.this, "Party Created!", Toast.LENGTH_LONG).show();
                 }
             });
             DatabaseWriter dbWriter = new DatabaseWriter();

@@ -5,7 +5,6 @@ package com.example.saglik.redcarpet.Classes;
  */
 
 public class Party {
-    private String key;
     private String name;
     private String location;
     private String date;
@@ -26,14 +25,6 @@ public class Party {
         this.organizer=organizer;
         this.imageLink=imageLink;
         this.organizerRating=organizerRating;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getName() {

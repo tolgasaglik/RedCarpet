@@ -42,6 +42,7 @@ public class DatabaseWriter {
         mParties.child("location").setValue(party.getLocation());
         mParties.child("date").setValue(party.getDate());
         mParties.child("organizer").setValue(party.getOrganizer());
+        mParties.child("key").setValue(key);
         mParties.child("info").setValue(party.getInfo());
         mParties.child("URL").setValue(party.getImageLink());
     }

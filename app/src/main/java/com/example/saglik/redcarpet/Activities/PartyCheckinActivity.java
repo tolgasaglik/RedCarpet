@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.saglik.redcarpet.Classes.Party;
 import com.example.saglik.redcarpet.Classes.User;
@@ -29,29 +30,33 @@ import java.util.ArrayList;
 
 public class PartyCheckinActivity extends AppCompatActivity {
 
-    TextView locationView;
-    TextView dateView;
-    TextView infoView;
-    TextView organizerView;
-    ImageView imageView;
-    Button registerButton;
-    Button mapsButton;
-    Button participantButton;
-    Party currentParty = new Party();
-    User user = new User();
-    DatabaseReference mDatabase;
-    String partyName;
-    boolean isParticipant;
-    ListView participantList;
-    ArrayList<String> participantNames = new ArrayList<>();
+    private TextView locationView;
+    private TextView dateView;
+    private TextView infoView;
+    private TextView organizerView;
+    private ImageView imageView;
+    private Button registerButton;
+    private Button mapsButton;
+    private Button participantButton;
+    private Party currentParty = new Party();
+    private String userID;
+    private String userName;
+    private DatabaseReference mDatabase;
+    private String partyName;
+    private String partyID;
+    private boolean isParticipant;
+    private ListView participantList;
+    private ArrayList<String> participantNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_checkin);
 
-        final Intent intent = getIntent();
-        partyName = intent.getStringExtra("partyName");
+        Intent intent = getIntent();
+        partyName = intent.getStringExtra("partyname");
+        partyID = intent.getStringExtra("partyid");
+        userName = intent.getStringExtra("username");
         setTitle(partyName);
 
         organizerView = findViewById(R.id.organizerView);
@@ -65,15 +70,14 @@ public class PartyCheckinActivity extends AppCompatActivity {
 
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyName+"/");
+        mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyID+"/");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 FirebaseUser userA = mAuth.getCurrentUser();
-                String userID = userA.getUid();
+                userID = userA.getUid();
                 currentParty = dataSnapshot.getValue(Party.class);
-                currentParty.setKey(dataSnapshot.getKey());
                 isParticipant = dataSnapshot.child("participants").child(userID).exists();
                 populateViews();
                 setRegisterButton();
@@ -95,14 +99,16 @@ public class PartyCheckinActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String partyID = currentParty.getKey();
                 DatabaseWriter dbWriter = new DatabaseWriter();
+                userID = dbWriter.getUserID();
                 if(registerButton.getText().equals("REGISTER")){
                     dbWriter.addParticipantToParty(partyID);
+                    participantNames.add(userName);
                     registerButton.setText("UNREGISTER");
                 }
                 else if(registerButton.getText().equals("UNREGISTER")){
                     dbWriter.removeParticipanFromParty(partyID);
+                    participantNames.remove(userName);
                     registerButton.setText("REGISTER");
                 }
             }
@@ -125,12 +131,16 @@ public class PartyCheckinActivity extends AppCompatActivity {
         participantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog dialog = new Dialog(PartyCheckinActivity.this);
-                dialog.setContentView(R.layout.participant_dialog);
-                dialog.setTitle("Participants");
-                participantList = (ListView) dialog.findViewById(R.id.participantList);
-                participantList.setAdapter(adapter);
-                dialog.show();
+                if(participantNames.isEmpty())
+                    Toast.makeText(PartyCheckinActivity.this, "You will be the first!", Toast.LENGTH_LONG).show();
+                else {
+                    final Dialog dialog = new Dialog(PartyCheckinActivity.this);
+                    dialog.setContentView(R.layout.participant_dialog);
+                    dialog.setTitle("Participants");
+                    participantList = (ListView) dialog.findViewById(R.id.participantList);
+                    participantList.setAdapter(adapter);
+                    dialog.show();
+                }
             }
         });
     }

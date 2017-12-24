@@ -100,4 +100,25 @@
         android:text="Save and Proceed"
         android:theme="@style/ThemeOverlay.MyDarkButton" />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText2"
+        android:layout_below="@+id/textView4"
+        android:isIndicator="true"
+        android:numStars="5" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ratingBar"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:layout_toStartOf="@+id/ratingBar"
+        android:gravity="center_vertical"
+        android:text="Users' Rating:"
+        android:textSize="20dp" />
+
 </RelativeLayout>
