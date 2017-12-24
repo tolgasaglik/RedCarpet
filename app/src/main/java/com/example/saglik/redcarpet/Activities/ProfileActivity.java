@@ -75,12 +75,13 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         userID = currentUser.getUid();
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("users/"+userID+"/");
+        mDatabase = FirebaseDatabase.getInstance().getReference("users/" + userID + "/");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                if(user==null)
+                    return;
                 String nickname = user.getNickname();
                 String location = user.getLocation();
                 String hidden = dataSnapshot.child("isPrivate").getValue().toString();
@@ -92,13 +93,12 @@ public class ProfileActivity extends AppCompatActivity {
                 else
                     privacySwitch.setChecked(false);
                 adminSwitch.setChecked(isAdmin);
-                if(isAdmin) {
+                if (isAdmin) {
                     ratingBar.setVisibility(View.VISIBLE);
                     ratingBar.setRating(user.getRating());
-                }else{
+                } else {
                     ratingBar.setVisibility(View.INVISIBLE);
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
