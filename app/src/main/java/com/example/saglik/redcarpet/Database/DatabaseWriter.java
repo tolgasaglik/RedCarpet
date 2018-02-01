@@ -68,7 +68,7 @@ public class DatabaseWriter {
         mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyID+"/participants/");
         mDatabase.child(userID).removeValue();
     }
-
+    //Find user ID
     public String getUserID(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser userA = mAuth.getCurrentUser();

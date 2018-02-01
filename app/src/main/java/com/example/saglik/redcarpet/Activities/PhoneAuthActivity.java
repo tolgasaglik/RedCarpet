@@ -3,10 +3,8 @@ package com.example.saglik.redcarpet.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.saglik.redcarpet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,21 +54,15 @@ public class PhoneAuthActivity extends AppCompatActivity implements
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-
     private ViewGroup mPhoneNumberViews;
     private ViewGroup mSignedInViews;
-
     private TextView mStatusText;
     private TextView mDetailText;
-
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
-
     private Button mStartButton;
     private Button mVerifyButton;
     private Button mResendButton;
-    private Button mSignOutButton;
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +87,7 @@ public class PhoneAuthActivity extends AppCompatActivity implements
         mStartButton = findViewById(R.id.button_start_verification);
         mVerifyButton = findViewById(R.id.button_verify_phone);
         mResendButton = findViewById(R.id.button_resend);
-        mSignOutButton = findViewById(R.id.sign_out_button);
+        Button mSignOutButton = findViewById(R.id.sign_out_button);
 
         // Assign click listeners
         mStartButton.setOnClickListener(this);
@@ -424,7 +415,7 @@ public class PhoneAuthActivity extends AppCompatActivity implements
         //Warning may produce null pointer exception
         String userID = userA.getUid();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("users"+"/"+userID);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users" + "/" + userID);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -436,7 +427,6 @@ public class PhoneAuthActivity extends AppCompatActivity implements
                     Intent intent = new Intent(PhoneAuthActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
-
             }
 
             @Override

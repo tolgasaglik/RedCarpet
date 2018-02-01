@@ -1,5 +1,6 @@
 package com.example.saglik.redcarpet.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.saglik.redcarpet.Classes.Party;
-import com.example.saglik.redcarpet.Classes.User;
 import com.example.saglik.redcarpet.Database.DatabaseWriter;
 import com.example.saglik.redcarpet.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class PartyCheckinActivity extends AppCompatActivity {
@@ -36,13 +34,9 @@ public class PartyCheckinActivity extends AppCompatActivity {
     private TextView organizerView;
     private ImageView imageView;
     private Button registerButton;
-    private Button mapsButton;
-    private Button participantButton;
     private Party currentParty = new Party();
     private String userID;
     private String userName;
-    private DatabaseReference mDatabase;
-    private String partyName;
     private String partyID;
     private boolean isParticipant;
     private ListView participantList;
@@ -54,7 +48,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_checkin);
 
         Intent intent = getIntent();
-        partyName = intent.getStringExtra("partyname");
+        String partyName = intent.getStringExtra("partyname");
         partyID = intent.getStringExtra("partyid");
         userName = intent.getStringExtra("username");
         setTitle(partyName);
@@ -65,17 +59,17 @@ public class PartyCheckinActivity extends AppCompatActivity {
         infoView = findViewById(R.id.infoView);
         imageView = findViewById(R.id.imageView);
         registerButton = findViewById(R.id.registerButton);
-        mapsButton = findViewById(R.id.mapsButton);
-        participantButton = findViewById(R.id.participantButton);
+        Button mapsButton = findViewById(R.id.mapsButton);
+        Button participantButton = findViewById(R.id.participantButton);
 
 
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyID+"/");
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference("parties/" + partyID + "/");
+        mDatabase1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 FirebaseUser userA = mAuth.getCurrentUser();
+                assert userA != null;
                 userID = userA.getUid();
                 currentParty = dataSnapshot.getValue(Party.class);
                 isParticipant = dataSnapshot.child("participants").child(userID).exists();
@@ -97,6 +91,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
         });
         //Register user to this party
         registerButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 DatabaseWriter dbWriter = new DatabaseWriter();
@@ -115,7 +110,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
             }
         });
         participantList = findViewById(R.id.participantList);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+partyName+"/participants/");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("parties/"+ partyName +"/participants/");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -140,7 +135,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
                     final Dialog dialog = new Dialog(PartyCheckinActivity.this);
                     dialog.setContentView(R.layout.participant_dialog);
                     dialog.setTitle("Participants");
-                    participantList = (ListView) dialog.findViewById(R.id.participantList);
+                    participantList = dialog.findViewById(R.id.participantList);
                     participantList.setAdapter(adapter);
                     dialog.show();
                 }
@@ -148,6 +143,7 @@ public class PartyCheckinActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void setRegisterButton(){
         if(isParticipant)
             registerButton.setText("UNREGISTER");
@@ -155,12 +151,12 @@ public class PartyCheckinActivity extends AppCompatActivity {
             registerButton.setText("REGISTER");
     }
 
+    @SuppressLint("SetTextI18n")
     private void populateViews() {
         organizerView.setText("Event Organizer: "+currentParty.getOrganizer());
         locationView.setText("Location: "+currentParty.getLocation());
         dateView.setText("Event Date: "+currentParty.getDate());
         infoView.setText("Event Info: "+currentParty.getInfo());
-//        Picasso.with(PartyCheckinActivity.this).load(currentParty.getImageLink()).resize(200,200).centerCrop().into(imageView);
         Picasso.with(PartyCheckinActivity.this).load(currentParty.getImageLink()).fit().centerCrop()
                 .placeholder(R.drawable.downloading) //image that you show during the download
                 .error(R.drawable.downloaderror) //image error if doesn't download it correctly

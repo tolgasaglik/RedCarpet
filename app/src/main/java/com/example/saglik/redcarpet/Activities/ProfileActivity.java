@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Switch;
-
 import com.example.saglik.redcarpet.Classes.User;
 import com.example.saglik.redcarpet.Database.DatabaseWriter;
 import com.example.saglik.redcarpet.R;
@@ -28,11 +26,6 @@ public class ProfileActivity extends AppCompatActivity {
     private Switch adminSwitch;
     private Switch privacySwitch;
     private RatingBar ratingBar;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    private String userID;
-    private FirebaseUser currentUser;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +35,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         nameText = findViewById(R.id.editText1);
         locationText = findViewById(R.id.editText2);
-        adminSwitch = (Switch)  findViewById(R.id.switch1);
-        privacySwitch = (Switch)findViewById(R.id.switch2);
+        adminSwitch = findViewById(R.id.switch1);
+        privacySwitch = findViewById(R.id.switch2);
         ratingBar = findViewById(R.id.ratingBar);
 
         setEditTextViews();
     }
-
 
     public void saveAndProceed(View view){
         String nickname = nameText.getText().toString();
@@ -72,10 +64,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setEditTextViews(){
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        userID = currentUser.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users/" + userID + "/");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser.getUid();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users/" + userID + "/");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -105,6 +97,5 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }
